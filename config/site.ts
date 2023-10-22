@@ -12,5 +12,6 @@ export const siteConfig = {
   links: {
     facebook: "https://www.facebook.com/groups/CyberTruck/?mibextid=oMANbw",
     github: "https://github.com/ericzorn93/Cybertruck-Intelligence",
+    web: "https://www.cybertruckownersclub.com/",
   },
 };

@@ -10,7 +10,12 @@ import {
 import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { FacebookIcon, GithubIcon, CybertruckLogo } from "@/components/icons";
+import {
+  FacebookIcon,
+  GithubIcon,
+  CybertruckLogo,
+  WebIcon,
+} from "@/components/icons";
 
 export const Navbar = () => {
   return (
@@ -32,12 +37,12 @@ export const Navbar = () => {
           <Link
             isExternal
             href={siteConfig.links.facebook}
-            aria-label="Twitter"
+            aria-label="Facebook"
           >
-            <FacebookIcon className="text-default-500" />
+            <FacebookIcon />
           </Link>
-          <ThemeSwitch />
         </NavbarItem>
+        <ThemeSwitch />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
