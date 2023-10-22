@@ -3,7 +3,7 @@
 import { Input } from "@nextui-org/input";
 import { useState } from "react";
 
-export const Vin = () => {
+export const VinNumber = () => {
   const [vinNumber, setVinNumber] = useState<string>("");
 
   return (
