@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 import clsx from "clsx";
 
 export const metadata: Metadata = {
@@ -43,12 +44,7 @@ export default function RootLayout({
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
-            <footer className="w-full flex items-center justify-center py-3 gap-2">
-              <span className="text-default-600">
-                Built with ❤️ for the Tesla Cybertruck by
-              </span>
-              <p className="text-default-400 font-bold">Eric Zorn</p>
-            </footer>
+            <Footer />
           </div>
         </Providers>
       </body>
