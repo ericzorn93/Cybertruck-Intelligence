@@ -41,9 +41,6 @@ export const VinNumberForm: FC<IHandleMessageProps> = ({
           vinNumber: "",
         }}
         validationSchema={vinValidationSchema}
-        onReset={() => {
-          handleMessageCardShow(null);
-        }}
         onSubmit={(vals, form) => {
           form.setSubmitting(true);
 
