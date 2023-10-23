@@ -1,20 +1,17 @@
 "use client";
 
+import { FC, useRef } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import {
-  CyberTruckVinNumberValidator,
-  getModelYearOptions,
-  getValidModelYears,
-} from "./utils";
-import { useRef } from "react";
 
+import { CyberTruckVinNumberValidator, getModelYearOptions } from "./utils";
+
+// Constants
 const NOW = new Date();
 const NEXT_YEAR = NOW.getFullYear() + 1;
-
 const vinValidationSchema = Yup.object({
   modelYear: Yup.string()
     .matches(/^\d{4}$/, `You must have a valid model year i.e. ${NEXT_YEAR}`)
@@ -27,7 +24,7 @@ const vinValidationSchema = Yup.object({
     .required("VIN Number Is Required"),
 });
 
-export const VinNumberForm = () => {
+export const VinNumberForm: FC = () => {
   const activeModelYearOptions = useRef(getModelYearOptions());
 
   return (
