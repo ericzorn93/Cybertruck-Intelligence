@@ -5,15 +5,14 @@ import * as Yup from "yup";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
-import {
-  CyberTruckVinNumberValidator,
-  getModelYearOptions,
-  getValidModelYears,
-} from "./utils";
-import { useRef } from "react";
 
 const NOW = new Date();
 const NEXT_YEAR = NOW.getFullYear() + 1;
+
+const VALIDModelYears = [NEXT_YEAR].map((modelYear) => ({
+  label: modelYear.toString(),
+  value: modelYear,
+}));
 
 const vinValidationSchema = Yup.object({
   modelYear: Yup.string()
@@ -28,8 +27,6 @@ const vinValidationSchema = Yup.object({
 });
 
 export const VinNumberForm = () => {
-  const activeModelYearOptions = useRef(getModelYearOptions());
-
   return (
     <article className="w-full">
       <Formik
@@ -39,32 +36,7 @@ export const VinNumberForm = () => {
         }}
         validationSchema={vinValidationSchema}
         onSubmit={(vals, form) => {
-          const validator = new CyberTruckVinNumberValidator(vals.vinNumber);
-          const isValid = validator
-            .validateVINLength()
-            .validateIsVINTeslaTruck()
-            .validIsCyberTruck()
-            .validIsChassisType()
-            .validWeight()
-            .validWeight()
-            .validFuelType()
-            .validMotorDriveUnitBreaking()
-            .validCheckDigit()
-            .validModelYear()
-            .validPlantOfManufacture()
-            .validSerialNumber()
-            .validate();
-
-          if (!isValid) {
-            form.setSubmitting(false);
-            form.setErrors({
-              modelYear: "Must Be a Valid Model Year",
-              vinNumber: "Must Be a Valid VIN Number",
-            });
-            return;
-          }
-
-          form.setSubmitting(false);
+          console.log({ vals });
           form.resetForm();
         }}
       >
@@ -77,9 +49,9 @@ export const VinNumberForm = () => {
           errors,
           touched,
           isValid,
+          dirty,
         }) => {
-          const isDisabled = !isValid || isSubmitting;
-          console.log({ isValid, isSubmitting });
+          const isDisabled = !isValid || !dirty || isSubmitting;
 
           return (
             <form
@@ -88,7 +60,7 @@ export const VinNumberForm = () => {
             >
               <Select
                 name="modelYear"
-                items={activeModelYearOptions.current}
+                items={VALIDModelYears}
                 label="Model Year"
                 placeholder="Select a Modal Year You Have"
                 variant="bordered"
@@ -116,7 +88,7 @@ export const VinNumberForm = () => {
                 radius="md"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.vinNumber.toUpperCase()}
+                value={values.vinNumber}
                 isInvalid={!!touched.vinNumber && !!errors.vinNumber}
                 errorMessage={touched.vinNumber && errors.vinNumber}
               />
