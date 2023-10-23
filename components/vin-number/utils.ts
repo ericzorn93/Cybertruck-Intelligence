@@ -3,7 +3,7 @@ export function getValidModelYears(): number[] {
   const thisYear = now.getFullYear();
   const nextYear = thisYear + 1;
 
-  return [thisYear, nextYear];
+  return [nextYear];
 }
 
 export function getModelYearOptions() {

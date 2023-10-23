@@ -1,13 +1,15 @@
 "use client";
 
-import { FC, useRef } from "react";
+import { FC, useRef, useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
+import { Divider } from "@nextui-org/divider";
 
 import { CyberTruckVinNumberValidator, getModelYearOptions } from "./utils";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
 
 // Constants
 const NOW = new Date();
@@ -24,14 +26,14 @@ const vinValidationSchema = Yup.object({
     .required("VIN Number Is Required"),
 });
 
-interface IHandleMessageProps {
-  handleMessageCardShow: (isValid: boolean | null) => void;
-}
-
-export const VinNumberForm: FC<IHandleMessageProps> = ({
-  handleMessageCardShow,
-}) => {
+export const VinNumberForm: FC = () => {
   const activeModelYearOptions = useRef(getModelYearOptions());
+  const [vinNumberErrorMessage, setVinNumberErrorMessage] = useState<
+    string | null
+  >(null);
+  const [vinNumberSuccessMessage, setVinNumberSuccessMessage] = useState<
+    string | null
+  >(null);
 
   return (
     <article className="w-full">
@@ -67,14 +69,16 @@ export const VinNumberForm: FC<IHandleMessageProps> = ({
               modelYear: "Must Be a Valid Model Year",
               vinNumber: "Must Be a Valid VIN Number",
             });
-            handleMessageCardShow(false);
+            setVinNumberErrorMessage("CyberTruck VIN Number Invalid");
+            setVinNumberSuccessMessage(null);
             return;
           }
 
           // Reset Form State
-          handleMessageCardShow(true);
           form.setSubmitting(false);
           form.resetForm();
+          setVinNumberSuccessMessage("This works");
+          setVinNumberErrorMessage(null);
         }}
       >
         {({
@@ -82,12 +86,14 @@ export const VinNumberForm: FC<IHandleMessageProps> = ({
           handleChange,
           handleBlur,
           handleSubmit,
+          resetForm,
           isSubmitting,
           errors,
           touched,
           isValid,
+          dirty,
         }) => {
-          const isDisabled = !isValid || isSubmitting;
+          const isDisabled = !isValid || isSubmitting || !dirty;
 
           return (
             <form
@@ -128,17 +134,52 @@ export const VinNumberForm: FC<IHandleMessageProps> = ({
                 isInvalid={!!touched.vinNumber && !!errors.vinNumber}
                 errorMessage={touched.vinNumber && errors.vinNumber}
               />
-              <Button
-                type="submit"
-                disabled={isDisabled}
-                style={{ cursor: isDisabled ? "not-allowed" : "pointer" }}
-              >
-                Submit
-              </Button>
+              <div className="flex gap-2 justify-between">
+                <Button
+                  className="flex-1"
+                  type="submit"
+                  disabled={isDisabled}
+                  style={{ cursor: isDisabled ? "not-allowed" : "pointer" }}
+                >
+                  Submit
+                </Button>
+                <Button
+                  type="button"
+                  variant="bordered"
+                  onClick={() => {
+                    resetForm();
+                    setVinNumberErrorMessage(null);
+                    setVinNumberSuccessMessage(null);
+                  }}
+                >
+                  Reset
+                </Button>
+              </div>
             </form>
           );
         }}
       </Formik>
+
+      {/* SHOW FORM MESSAGES */}
+      {vinNumberErrorMessage && (
+        <Card className="mt-3">
+          <CardHeader>Sorry, please enter a different VIN number.</CardHeader>
+          <Divider />
+          <CardBody>
+            <p className="text-red-500">{vinNumberErrorMessage}</p>
+          </CardBody>
+        </Card>
+      )}
+
+      {vinNumberSuccessMessage && (
+        <Card className="mt-3">
+          <CardHeader>Yay, this is a valid Cybertruck Vin Number!</CardHeader>
+          <Divider />
+          <CardBody>
+            <p className="text-green-500">{vinNumberSuccessMessage}</p>
+          </CardBody>
+        </Card>
+      )}
     </article>
   );
 };
