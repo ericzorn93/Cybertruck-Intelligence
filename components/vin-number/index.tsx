@@ -24,7 +24,13 @@ const vinValidationSchema = Yup.object({
     .required("VIN Number Is Required"),
 });
 
-export const VinNumberForm: FC = () => {
+interface IHandleMessageProps {
+  handleMessageCardShow: (isValid: boolean | null) => void;
+}
+
+export const VinNumberForm: FC<IHandleMessageProps> = ({
+  handleMessageCardShow,
+}) => {
   const activeModelYearOptions = useRef(getModelYearOptions());
 
   return (
@@ -35,7 +41,13 @@ export const VinNumberForm: FC = () => {
           vinNumber: "",
         }}
         validationSchema={vinValidationSchema}
+        onReset={() => {
+          handleMessageCardShow(null);
+        }}
         onSubmit={(vals, form) => {
+          form.setSubmitting(true);
+
+          // Validate VIN Number
           const validator = new CyberTruckVinNumberValidator(vals.vinNumber);
           const isValid = validator
             .validateVINLength()
@@ -58,9 +70,12 @@ export const VinNumberForm: FC = () => {
               modelYear: "Must Be a Valid Model Year",
               vinNumber: "Must Be a Valid VIN Number",
             });
+            handleMessageCardShow(false);
             return;
           }
 
+          // Reset Form State
+          handleMessageCardShow(true);
           form.setSubmitting(false);
           form.resetForm();
         }}
@@ -76,7 +91,6 @@ export const VinNumberForm: FC = () => {
           isValid,
         }) => {
           const isDisabled = !isValid || isSubmitting;
-          console.log({ isValid, isSubmitting });
 
           return (
             <form
