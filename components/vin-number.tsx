@@ -7,32 +7,38 @@ import { Input } from "@nextui-org/input";
 import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 
-const VALIDModelYears = [2024].map((modelYear) => ({
+const NOW = new Date();
+const NEXT_YEAR = NOW.getFullYear() + 1;
+
+const VALIDModelYears = [NEXT_YEAR].map((modelYear) => ({
   label: modelYear.toString(),
   value: modelYear,
 }));
 
 const vinValidationSchema = Yup.object({
-  modelYear: Yup.string().length(4, "You must have a valid model year"),
+  modelYear: Yup.string()
+    .matches(/^\d{4}$/, `You must have a valid model year i.e. ${NEXT_YEAR}`)
+    .required(`4 Digit Model Is Required i.e. ${NEXT_YEAR}`),
   vinNumber: Yup.string()
-    .min(17, "VIN Number must be 17 characters")
-    .max(17, "VIN Number must be 17 characters"),
+    .matches(
+      /^[a-z0-9]{17}$/i,
+      "VIN Number must be 17 Alpha-Numeric Characters"
+    )
+    .required("VIN Number Is Required"),
 });
 
 export const VinNumberForm = () => {
-  const currentYear = useRef<number>(new Date().getFullYear());
-  const nextYear = currentYear.current + 1;
-
   return (
     <article className="w-full">
       <Formik
         initialValues={{
-          modelYear: nextYear.toString(),
+          modelYear: NEXT_YEAR.toString(),
           vinNumber: "",
         }}
         validationSchema={vinValidationSchema}
-        onSubmit={(form) => {
-          console.log({ vals: form });
+        onSubmit={(vals, form) => {
+          console.log({ vals });
+          form.resetForm();
         }}
       >
         {({
@@ -44,8 +50,10 @@ export const VinNumberForm = () => {
           errors,
           touched,
           isValid,
+          dirty,
         }) => {
-          console.log({ isValid });
+          const isDisabled = !isValid || !dirty || isSubmitting;
+
           return (
             <form
               onSubmit={handleSubmit}
@@ -57,10 +65,12 @@ export const VinNumberForm = () => {
                 label="Model Year"
                 placeholder="Select a Modal Year You Have"
                 variant="bordered"
-                defaultSelectedKeys={[nextYear.toString()]}
+                defaultSelectedKeys={[NEXT_YEAR.toString()]}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.modelYear}
+                isInvalid={!!touched.modelYear && !!errors.modelYear}
+                errorMessage={touched.modelYear || errors.modelYear}
               >
                 {(modelYear) => (
                   <SelectItem key={modelYear.label} value={modelYear.value}>
@@ -83,7 +93,11 @@ export const VinNumberForm = () => {
                 isInvalid={!!touched.vinNumber && !!errors.vinNumber}
                 errorMessage={touched.vinNumber && errors.vinNumber}
               />
-              <Button type="submit" disabled={!isValid || isSubmitting}>
+              <Button
+                type="submit"
+                disabled={isDisabled}
+                style={{ cursor: isDisabled ? "not-allowed" : "pointer" }}
+              >
                 Submit
               </Button>
             </form>
