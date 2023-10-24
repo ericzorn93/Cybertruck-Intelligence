@@ -1,11 +1,13 @@
-import "@/styles/globals.css";
 import { Metadata } from "next";
+import clsx from "clsx";
+import { Analytics } from "@vercel/analytics/react";
+
+import "@/styles/globals.css";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import clsx from "clsx";
 
 export const metadata: Metadata = {
   title: {
@@ -47,6 +49,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
