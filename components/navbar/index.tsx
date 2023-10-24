@@ -29,11 +29,8 @@ export const Navbar = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-2">
+      <NavbarContent className="sm:flex basis-1/5 sm:basis-full" justify="end">
+        <NavbarItem className="sm:flex gap-2">
           <Link
             isExternal
             href={siteConfig.links.facebook}
@@ -42,13 +39,15 @@ export const Navbar = () => {
             <FacebookIcon />
           </Link>
         </NavbarItem>
-        <ThemeSwitch />
-      </NavbarContent>
-
-      <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href={siteConfig.links.github} aria-label="Github">
-          <GithubIcon className="text-default-500" />
-        </Link>
+        <NavbarItem className="sm:flex gap-2">
+          <Link
+            isExternal
+            href={siteConfig.links.web}
+            aria-label="Cybertruck Owner's Club"
+          >
+            <WebIcon />
+          </Link>
+        </NavbarItem>
         <ThemeSwitch />
       </NavbarContent>
     </NextUINavbar>
