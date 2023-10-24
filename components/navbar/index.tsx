@@ -15,6 +15,7 @@ import {
   GithubIcon,
   CybertruckLogo,
   WebIcon,
+  TeslaIcon,
 } from "@/components/icons";
 
 export const Navbar = () => {
@@ -46,6 +47,15 @@ export const Navbar = () => {
             aria-label="Cybertruck Owner's Club"
           >
             <WebIcon />
+          </Link>
+        </NavbarItem>
+        <NavbarItem className="sm:flex gap-2">
+          <Link
+            isExternal
+            href={siteConfig.links.tesla}
+            aria-label="Tesla Cybertruck Homepage"
+          >
+            <TeslaIcon />
           </Link>
         </NavbarItem>
         <ThemeSwitch />

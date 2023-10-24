@@ -18,7 +18,7 @@ export const ArticleGrid: FC<IArticleGridProps> = ({ articleData }) => {
           <>
             <Card className="col-span-12 sm:col-span-4 h-[300px]">
               <CardHeader className="absolute z-10 top-1 flex-col !items-start">
-                <p className="text-tiny text-black dark:text-white/60 uppercase font-bold">
+                <p className="text-tiny text-black dark:text-white/90 uppercase font-bold">
                   {article.title}
                 </p>
               </CardHeader>
@@ -26,7 +26,8 @@ export const ArticleGrid: FC<IArticleGridProps> = ({ articleData }) => {
                 removeWrapper
                 isBlurred
                 alt="Card background"
-                className="z-0 w-full h-full object-contain"
+                className="z-0 w-full h-full object-cover"
+                style={{ opacity: 0.8 }}
                 src={article.img}
               />
               <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">

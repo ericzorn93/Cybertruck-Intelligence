@@ -31,6 +31,7 @@
     "autoprefixer": "10.4.16",
     "cheerio": "1.0.0-rc.12",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
     "eslint": "8.52.0",
     "eslint-config-next": "13.5.6",
     "formik": "^2.4.5",

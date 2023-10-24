@@ -64,6 +64,27 @@ export const WebIcon: React.FC<IconSvgProps> = ({
   );
 };
 
+export const TeslaIcon: React.FC<IconSvgProps> = ({
+  size = 20,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      height={size || height}
+      viewBox="0 0 320 320"
+      width={size || width}
+      {...props}
+    >
+      <path
+        className="fill-black dark:fill-white"
+        d="M160 318l44.4-249.7c42.3 0 55.7 4.7 57.6 23.6 0 0 28.4-10.6 42.7-32.1-55.9-25.9-112-27.1-112-27.1l-32.8 39.9h.1l-32.8-39.9s-56.1 1.2-112 27.1c14.3 21.5 42.7 32.1 42.7 32.1 2-18.9 15.3-23.6 57.3-23.6L160 318zm0-296.8c45.2-.4 96.8 7 149.8 30.1 7.1-12.7 8.9-18.4 8.9-18.4C268.2 12.8 214.4 2.3 160 2 105.6 2.3 51.8 12.8 1.3 32.9c2.6 6.3 5.5 12.4 8.9 18.4C63.1 28.2 114.8 20.9 160 21.2h0"
+      />
+    </svg>
+  );
+};
+
 export const GithubIcon: React.FC<IconSvgProps> = ({
   size = 24,
   width,
