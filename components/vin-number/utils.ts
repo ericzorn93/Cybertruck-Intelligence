@@ -122,3 +122,20 @@ export class CyberTruckVinNumberValidator {
     return this.isValid;
   }
 }
+
+export function getMotorType(vinNumber: string): string {
+  const motorTypeChar = vinNumber.charAt(8 - 1);
+
+  switch (motorTypeChar.toUpperCase()) {
+    case "D":
+      return "Dual Motor";
+    case "E":
+      return "Triple Motor";
+    default:
+      return "Unknown";
+  }
+}
+
+export function getSerialNumber(vinNumber: string): string {
+  return vinNumber.substring(12 - 1).toUpperCase();
+}

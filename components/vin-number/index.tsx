@@ -8,7 +8,12 @@ import { Select, SelectItem } from "@nextui-org/select";
 import { Button } from "@nextui-org/button";
 import { Divider } from "@nextui-org/divider";
 
-import { CyberTruckVinNumberValidator, getModelYearOptions } from "./utils";
+import {
+  CyberTruckVinNumberValidator,
+  getModelYearOptions,
+  getMotorType,
+  getSerialNumber,
+} from "./utils";
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
 
 // Constants
@@ -77,7 +82,12 @@ export const VinNumberForm: FC = () => {
           // Reset Form State
           form.setSubmitting(false);
           form.resetForm();
-          setVinNumberSuccessMessage("This works");
+
+          const motorType = getMotorType(vals.vinNumber);
+          const serialNumber = getSerialNumber(vals.vinNumber);
+          setVinNumberSuccessMessage(
+            `This is a ${motorType} with Serial Number ${serialNumber}`
+          );
           setVinNumberErrorMessage(null);
         }}
       >
