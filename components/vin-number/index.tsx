@@ -22,7 +22,7 @@ const NEXT_YEAR = NOW.getFullYear() + 1;
 const vinValidationSchema = Yup.object({
   modelYear: Yup.string()
     .matches(/^\d{4}$/, `You must have a valid model year i.e. ${NEXT_YEAR}`)
-    .required(`4 Digit Model Is Required i.e. ${NEXT_YEAR}`),
+    .required(`4 Digit Model Year Is Required i.e. ${NEXT_YEAR}`),
   vinNumber: Yup.string()
     .matches(
       /^[a-z0-9]{17}$/i,
