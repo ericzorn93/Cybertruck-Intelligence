@@ -240,7 +240,7 @@ export const CybertruckLogo: React.FC<IconSvgProps> = (props) => {
     <svg
       width={width}
       height={height}
-      enable-background="new -10.5 297.5 622.5 195"
+      enableBackground="new -10.5 297.5 622.5 195"
       version="1.1"
       viewBox="-10.5 297.5 622.5 195"
       xmlns="http://www.w3.org/2000/svg"

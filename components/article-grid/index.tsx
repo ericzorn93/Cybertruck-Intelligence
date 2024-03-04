@@ -16,7 +16,10 @@ export const ArticleGrid: FC<IArticleGridProps> = ({ articleData }) => {
       <div className="max-w-[900px] mx-auto gap-4 grid grid-cols-12 grid-rows-2 px-8">
         {articleData.map((article) => (
           <>
-            <Card className="col-span-12 sm:col-span-4 h-[300px]">
+            <Card
+              className="col-span-12 sm:col-span-4 h-[300px]"
+              key={article.id}
+            >
               <CardHeader className="absolute z-10 top-1 flex-col !items-start">
                 <p className="text-tiny text-black dark:text-white/90 uppercase font-bold">
                   {article.title}

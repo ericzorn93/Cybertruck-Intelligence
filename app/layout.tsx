@@ -1,6 +1,7 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "@/styles/globals.css";
 import { siteConfig } from "@/config/site";
@@ -15,15 +16,18 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export default function RootLayout({
@@ -50,6 +54,7 @@ export default function RootLayout({
           </div>
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
